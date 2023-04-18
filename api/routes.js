@@ -14,7 +14,7 @@ router.get("/form", (req, res) => {
   });
 
 // ZADANIE 12
-const { USERS } = require("../users");
+let { USERS } = require("../users");
 
 router.get("", (req, res) => {
   res.json(USERS);
@@ -35,9 +35,9 @@ router.get("/:id", (req, res) => {
 
 const metoda = require("../middleware/metoda");
 
-router.post("", metoda, (req, res) => {
+router.post("/", (req, res) => {
   const newUser = {
-    id: USERS.length + 1,
+    id: USERS.at(USERS.length-1).id + 1,
     name: req.body.name,
     email: req.body.email,
     status: "aktywny",
@@ -69,11 +69,16 @@ router.patch("/:id", metoda, (req, res) => {
   }
 });
 
-router.delete("/:id", metoda, (req, res) => {
+router.delete("/:id", (req, res) => {
   const found = USERS.some((user) => user.id === parseInt(req.params.id));
-  if (found) {
-    USERS.pop(USERS.indexOf(found));
-    res.json(USERS);
+  if (found) {    
+    let index = USERS.indexOf(USERS.filter(user => user.id === parseInt(req.params.id)).at(0));
+    if(index === 0){
+      USERS.shift();
+    } else {
+      USERS.pop(index);
+    }
+      res.json(USERS);
   } else {
     res.status(400).json({ msg: "User not found" });
   }

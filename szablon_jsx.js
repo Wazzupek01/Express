@@ -5,8 +5,11 @@ const reactEngine = require("express-react-views");
 
 app.set("view engine", "jsx");
 app.engine("jsx", reactEngine.createEngine());
+
 app.get("/about", (req, res) => {
   res.render("about", { nazwisko: "Kowalski" });
 });
 
 app.listen(3000, () => console.log("Serwer działa!"));
+
+//, email: "kowalski@wp.pl", wiek: 69

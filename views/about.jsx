@@ -1,7 +1,11 @@
-const React = require("react");
+import React from "react";
 
 const HelloMessage = (props) => {
-  return <div>Nazwisko: {props.nazwisko}</div>;
+  return
+  <div>
+    <div>Nazwisko: {props.nazwisko}</div>
+    <div>Email: {props.email}</div>
+    <div>Wiek: {props.wiek}</div></div>;
 };
 
-module.exports = HelloMessage;
+export default HelloMessage;

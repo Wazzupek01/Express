@@ -78,12 +78,13 @@ app.post(
   "/form",
   [
     check("nazwisko")
-      .isLength({ min: 3, max: 25 })
-      .isAlpha()
-      .withMessage("Złe nazwisko")
-      .trim()
-      .stripLow()
-      .bail(),
+    .customSanitizer( i => {return createInitials(i)}),
+      // .isLength({ min: 3, max: 25 })
+      // .isAlpha()
+      // .withMessage("Złe nazwisko")
+      // .trim()
+      // .stripLow()
+      // .bail(),
     check("email")
       .isEmail()
       .withMessage("To nie email")
